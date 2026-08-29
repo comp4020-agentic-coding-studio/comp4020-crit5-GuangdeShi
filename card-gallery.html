@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recall — card gallery</title>
+    <meta
+      name="description"
+      content="Recall: temporary internal page for reviewing the card visual system during development."
+    />
+    <meta property="og:image" content="./card.png" />
+    <link rel="stylesheet" href="./styles.css" />
+    <style>
+      /* Gallery-only layout, kept out of styles.css since this page is temporary. */
+      .gallery-note {
+        max-width: 40rem;
+        opacity: 0.65;
+        font-size: 0.85rem;
+        text-align: center;
+      }
+      .suit-row {
+        width: 100%;
+        max-width: 60rem;
+      }
+      .suit-row h2 {
+        text-transform: capitalize;
+        font-size: 0.95rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        opacity: 0.6;
+        margin: 0 0 0.6rem;
+      }
+      .suit-row .row {
+        justify-content: flex-start;
+      }
+    </style>
+  </head>
+  <body>
+    <nav aria-label="Primary"><a href="./">Home</a></nav>
+    <main class="stage">
+      <h1 class="title">Recall</h1>
+      <p class="gallery-note">
+        Temporary card visual audit page — every card in the deck, rendered by
+        the same code the game uses. Not part of the game itself; remove once
+        the card visuals are approved.
+      </p>
+      <div id="gallery" class="stage" style="padding: 0; gap: 2rem;"></div>
+    </main>
+    <script type="module" src="./card-gallery.ts"></script>
+  </body>
+</html>

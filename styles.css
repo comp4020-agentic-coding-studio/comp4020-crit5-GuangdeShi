@@ -127,7 +127,7 @@ nav a {
   width: var(--card-w);
   height: var(--card-h);
   border-radius: 0.5rem;
-  border: none;
+  border: 1px solid rgba(20, 16, 10, 0.16);
   background: var(--card-bg);
   box-shadow: 0 0.15rem 0.4rem rgba(0, 0, 0, 0.35);
   font-family: Georgia, "Times New Roman", serif;
@@ -169,21 +169,27 @@ nav a {
 }
 
 .corner-suit {
-  margin-top: -0.1rem;
+  display: block;
+  width: 0.72rem;
+  height: 0.72rem;
+  margin-top: 0.05rem;
+}
+
+.candidate-grid .corner-suit {
+  width: 0.5rem;
+  height: 0.5rem;
 }
 
 .pips {
   position: absolute;
-  inset: 1rem 0.4rem;
+  inset: 0.9rem 0.45rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(9, 1fr);
-  font-size: 1rem;
+  grid-template-rows: repeat(7, 1fr);
 }
 
 .candidate-grid .pips {
-  font-size: 0.7rem;
-  inset: 0.75rem 0.3rem;
+  inset: 0.7rem 0.3rem;
 }
 
 .pip {
@@ -192,17 +198,32 @@ nav a {
   justify-content: center;
 }
 
+.pip-icon {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.candidate-grid .pip-icon {
+  width: 0.34rem;
+  height: 0.34rem;
+}
+
 .ace-mark {
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.4rem;
 }
 
-.candidate-grid .ace-mark {
-  font-size: 1.5rem;
+.ace-icon {
+  width: 2.3rem;
+  height: 2.3rem;
+}
+
+.candidate-grid .ace-icon {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .face-card {
@@ -212,11 +233,9 @@ nav a {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  font-size: 1rem;
 }
 
 .candidate-grid .face-card {
-  font-size: 0.6rem;
   inset: 0.45rem 0.2rem;
 }
 
@@ -230,81 +249,23 @@ nav a {
   transform: rotate(180deg);
 }
 
-.face-portrait {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.face-portrait-svg {
+  display: block;
+  width: 1.9rem;
+  height: auto;
 }
 
-.face-crown {
-  width: 1.1em;
-  height: 0.55em;
-  background: currentColor;
-  opacity: 0.9;
-}
-
-.crown-jack {
-  clip-path: polygon(15% 100%, 85% 100%, 100% 45%, 50% 0%, 0% 45%);
-}
-
-.crown-queen {
-  clip-path: polygon(0% 100%, 0% 45%, 25% 0%, 50% 40%, 75% 0%, 100% 45%, 100% 100%);
-}
-
-.crown-king {
-  clip-path: polygon(
-    0% 100%,
-    0% 55%,
-    20% 100%,
-    20% 15%,
-    40% 100%,
-    50% 0%,
-    60% 100%,
-    80% 15%,
-    80% 100%,
-    100% 55%,
-    100% 100%
-  );
-}
-
-.face-head {
-  width: 0.8em;
-  height: 0.8em;
-  margin-top: 0.1em;
-  border-radius: 50%;
-  border: 0.12em solid currentColor;
-}
-
-.face-collar {
-  width: 1.3em;
-  height: 0.4em;
-  margin-top: -0.05em;
-  background: currentColor;
-  opacity: 0.85;
-  clip-path: polygon(20% 0, 80% 0, 100% 100%, 0% 100%);
-}
-
-.face-badge {
-  display: flex;
-  align-items: center;
-  gap: 0.2rem;
-  font-weight: bold;
+.candidate-grid .face-portrait-svg {
+  width: 1.05rem;
 }
 
 .face-letter {
   font-size: 1rem;
-}
-
-.face-suit {
-  font-size: 0.8rem;
+  font-weight: bold;
 }
 
 .candidate-grid .face-letter {
-  font-size: 0.75rem;
-}
-
-.candidate-grid .face-suit {
-  font-size: 0.6rem;
+  font-size: 0.72rem;
 }
 
 button.card {
@@ -481,6 +442,44 @@ button.card:active {
   .candidate-grid {
     gap: 0.35rem;
   }
+
+  .pip-icon {
+    width: 0.4rem;
+    height: 0.4rem;
+  }
+
+  .ace-icon {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+
+  .corner-suit {
+    width: 0.58rem;
+    height: 0.58rem;
+  }
+
+  .face-portrait-svg {
+    width: 1.5rem;
+  }
+
+  .candidate-grid .pip-icon {
+    width: 0.27rem;
+    height: 0.27rem;
+  }
+
+  .candidate-grid .ace-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .candidate-grid .corner-suit {
+    width: 0.42rem;
+    height: 0.42rem;
+  }
+
+  .candidate-grid .face-portrait-svg {
+    width: 0.85rem;
+  }
 }
 
 @media (max-width: 400px) {
@@ -493,6 +492,44 @@ button.card:active {
 
   .card {
     font-size: 1rem;
+  }
+
+  .pip-icon {
+    width: 0.32rem;
+    height: 0.32rem;
+  }
+
+  .ace-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .corner-suit {
+    width: 0.48rem;
+    height: 0.48rem;
+  }
+
+  .face-portrait-svg {
+    width: 1.25rem;
+  }
+
+  .candidate-grid .pip-icon {
+    width: 0.22rem;
+    height: 0.22rem;
+  }
+
+  .candidate-grid .ace-icon {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .candidate-grid .corner-suit {
+    width: 0.36rem;
+    height: 0.36rem;
+  }
+
+  .candidate-grid .face-portrait-svg {
+    width: 0.72rem;
   }
 }
 
