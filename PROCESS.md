@@ -1,9 +1,5 @@
 # Process overview
 
-<!-- TEMPLATE: this file is a shape to fill in, not a form. Replace everything
-     in it with your own overview, and delete this comment — `pnpm
-     check:evidence` will remind you if it's still here. -->
-
 A reading-guide to how the work came together --- a map to your process, not an
 essay about it. Markers read this file and follow its citations; they don't
 trawl the repo for evidence you didn't point at, so if a moment mattered, cite
@@ -17,45 +13,44 @@ cover every deliverable.
 
 ## What I built
 
-One paragraph: the thing, and the idea behind it.
+Recall: a card sequence memory game. A short target sequence is shown face-up,
+flips face-down, and a larger pool of candidates flips face-up in its place.
+The player reconstructs the sequence by clicking candidates in order --- the
+same click gesture undoes a placed card --- and the answer validates itself
+the instant every slot is filled, no submit step. Twelve levels raise target
+length, candidate count, and both timers; losing (wrong order, or the recall
+timer running out) is a real, reachable outcome, and clearing level 12 ends
+the run in a win screen rather than continuing forever.
 
 ## The moments that mattered
 
-Three or four for an assignment; fewer is fine for a weekly prototype. Keep the
-list short so each moment has room to do all four jobs:
+1. **Keeping game logic completely free of the DOM.** The brief's one required
+   test --- exact-identity, exact-order sequence comparison --- had to target
+   the real rule, not markup. `src/game/*.ts` (cards, levels, generation,
+   validation, state transitions) has no DOM references at all; `main.ts` is
+   the only file that touches `document`. That split is what let
+   `spec/crit-5.test.ts` test `isSequenceCorrect` directly against the four
+   cases the brief specifies, and let the rest of the state machine
+   (memorize/recall timers, select/deselect, win-at-12) get unit tests of its
+   own alongside it.
+   [`d105284`](https://github.com/comp4020-agentic-coding-studio/comp4020-crit5-GuangdeShi/commit/d105284)
 
-1. **what happened** --- the problem, or the thing that went wrong
-2. **what you did instead of the obvious thing** --- the call you made, and why
-   it beat the obvious one
-3. **how you knew it was right** --- the check you ran, the viewport you looked
-   at, what you read before accepting the diff
-4. **the citation** --- a commit or commit range, a `CLAUDE.md` change, a check
-   that went from red to green, a prompt paired with the commit it produced
+2. **A once-a-second repaint was restarting every animation before it could be
+   seen.** The UI redraws by replacing `#app`'s innerHTML from `render(state)`,
+   which is simple but means a fresh DOM node every repaint. Adding flip-in,
+   place-in, and glow animations in the polish pass meant the countdown timer
+   (which repaints every second in memorize/recall) would restart all of them
+   every tick --- flip-in on the whole candidate row, the correct/wrong glow,
+   all replaying on a 1-second loop instead of once. Fixed by splitting the
+   tick handler: a plain countdown only patches the timer element's text and
+   `low` class directly; phase transitions and clicks still trigger the full
+   repaint that the animations are meant to play on.
+   [`63e4680`](https://github.com/comp4020-agentic-coding-studio/comp4020-crit5-GuangdeShi/commit/63e4680)
 
-Jobs 2 and 3 are the ones the repo can't tell a reader on its own, so they're
-where the marks are. The strongest moments are the ones where a correction
-landed in the **harness** --- the standards and checks your work has to satisfy
---- rather than in a retry: a rule added to `CLAUDE.md`, a check wired up, an
-attempt thrown away. Retrying until it passes is the routine case, and changing
-what the work runs against is the skilled one.
-
-Cite each moment as a link whose text is the commit hash or range and whose
-target is this repo's commit or compare URL, so a reader clicks straight to the
-evidence:
-
-- one commit: [`a1b2c3d`](https://github.com/YOUR-ORG/YOUR-REPO/commit/a1b2c3d)
-- a range:
-  [`a1b2c3d...e4f5a6b`](https://github.com/YOUR-ORG/YOUR-REPO/compare/a1b2c3d...e4f5a6b)
-
-To pair a prompt with the commit it produced, quote the prompt (curated, not a
-full transcript) next to the citation:
-
-> the prompt, verbatim
-
-Screenshots are welcome where one carries the verification better than a
-sentence does. Commit the file to this repo and link it with a **relative**
-path, which is what makes it render on GitHub: `![alt text](docs/before.png)`.
-Images don't count towards the word count and don't replace the citation.
+3. **A real playtesting-driven change is still owed here.** Everything above
+   comes from reading the code and running automated checks, not from playing
+   the finished game. This entry will be replaced with an actual change once
+   that happens --- not fabricated ahead of it.
 
 ## Before you ship
 
