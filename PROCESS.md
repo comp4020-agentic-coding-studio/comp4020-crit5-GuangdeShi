@@ -47,23 +47,31 @@ the run in a win screen rather than continuing forever.
    repaint that the animations are meant to play on.
    [`63e4680`](https://github.com/comp4020-agentic-coding-studio/comp4020-crit5-GuangdeShi/commit/63e4680)
 
-3. **A real playtesting pass drove a full revision.** Playing the finished
-   Stage-5 build surfaced four concrete problems no amount of reading the code
+3. **Two real playtesting passes, each driving a genuine revision.** Playing
+   the finished Stage-5 build surfaced problems no amount of reading the code
    would have caught: the cards didn't read as real playing cards (one suit
    icon plus one rank, for every card), the candidate pool was small enough
    that early levels could often be solved by spotting a couple of ranks
    without holding the full sequence in memory, and both timers were generous
-   enough that the game felt shallow rather than genuinely testing recall.
-   That fed a two-part revision: the candidate pool became the full 52-card
-   deck every round (drawn from two independent shuffles, so a card's grid
-   position and its place in the target sequence are decoupled), with a
-   tighter 12-level timing table built around that harder pool
+   enough that the game felt shallow. That fed revision 1: a full 52-card
+   candidate pool every round plus a tighter timing table
    ([`135226b`](https://github.com/comp4020-agentic-coding-studio/comp4020-crit5-GuangdeShi/commit/135226b)),
-   and the cards themselves were redrawn with mirrored corner indices and a
-   real pip layout per rank (2-10), an ace mark, and a face-card badge for
-   J/Q/K, replacing the placeholder single-icon face
+   and cards redrawn with mirrored corner indices and a real pip layout,
+   replacing the placeholder single-icon face
    ([`0681166`](https://github.com/comp4020-agentic-coding-studio/comp4020-crit5-GuangdeShi/commit/0681166)).
-   A second playtest against this revision is still to come.
+   Playing *that* build then surfaced revision 1's own problems: 52 visible
+   candidates at once was too much to scan in practice, and the J/Q/K face
+   cards were still just a letter and suit in a bordered box, not something
+   that read as a face card. Revision 2 halved the candidate pool to a
+   26-card half-deck (target cards plus randomly drawn distractors, both
+   independently reshuffled every round) and retuned the 12-level timing
+   table for that smaller, more scannable pool
+   ([`77d897e`](https://github.com/comp4020-agentic-coding-studio/comp4020-crit5-GuangdeShi/commit/77d897e)),
+   replaced the J/Q/K badge with a double-headed portrait (mirrored top/bottom
+   halves, a crown shape distinct per rank) and added a large, unmistakable
+   "You Failed" screen on loss
+   ([`a022125`](https://github.com/comp4020-agentic-coding-studio/comp4020-crit5-GuangdeShi/commit/a022125)).
+   A third playtest against this revision is still to come.
 
 ## Before you ship
 
