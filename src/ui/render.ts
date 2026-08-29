@@ -9,10 +9,29 @@ const SUIT_SYMBOL: Record<Card["suit"], string> = {
   spades: "♠",
 };
 
+const CROWN_CLASS: Record<"J" | "Q" | "K", string> = {
+  J: "crown-jack",
+  Q: "crown-queen",
+  K: "crown-king",
+};
+
+/** A double-headed face-card portrait: two mirrored halves (the bottom one
+ *  rotated 180deg, like a real face card read from either end), each a
+ *  crown + head + collar silhouette, with the rank/suit badge sitting
+ *  between them. The crown shape is the only thing that differs by rank —
+ *  a plain point for Jack, a scalloped arch for Queen, a multi-spike crown
+ *  for King — so each reads as visually distinct at a glance. */
+function faceCardCenter(rank: "J" | "Q" | "K", symbol: string): string {
+  const crown = CROWN_CLASS[rank];
+  const portrait = `<span class="face-portrait"><span class="face-crown ${crown}"></span><span class="face-head"></span><span class="face-collar"></span></span>`;
+  const badge = `<span class="face-badge"><span class="face-letter">${rank}</span><span class="face-suit">${symbol}</span></span>`;
+  return `<span class="face-card"><span class="face-half top">${portrait}</span>${badge}<span class="face-half bottom">${portrait}</span></span>`;
+}
+
 /** The card face's interior: matching top-left / mirrored bottom-right
  *  corner indices, and a centre treatment that depends on rank — a pip
- *  layout for 2-10, a single large mark for the ace, a simplified
- *  letter-and-suit badge for J/Q/K. */
+ *  layout for 2-10, a single large mark for the ace, a double-headed
+ *  portrait for J/Q/K. */
 function cardFace(card: Card): string {
   const symbol = SUIT_SYMBOL[card.suit];
   const corner = `<span class="corner-rank">${card.rank}</span><span class="corner-suit">${symbol}</span>`;
@@ -20,7 +39,7 @@ function cardFace(card: Card): string {
   if (card.rank === "A") {
     center = `<span class="ace-mark">${symbol}</span>`;
   } else if (card.rank === "J" || card.rank === "Q" || card.rank === "K") {
-    center = `<span class="face-mark"><span class="face-letter">${card.rank}</span><span class="face-suit">${symbol}</span></span>`;
+    center = faceCardCenter(card.rank, symbol);
   } else {
     const pips = pipLayout(card.rank)
       .map(
@@ -119,8 +138,10 @@ function renderResult(state: GameState): string {
     })
     .join("");
   const revealRow = correct ? "" : `<div class="row reveal-row">${state.target.map((card) => faceUpCard(card)).join("")}</div>`;
+  const failBanner = correct ? "" : `<p class="fail-banner">You Failed</p>`;
   return `
     <div class="round result ${correct ? "success" : "failure"}">
+      ${failBanner}
       <div class="row answer-row">${marked}</div>
       ${revealRow}
       <p class="level-line">Level ${state.level}</p>
