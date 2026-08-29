@@ -5,22 +5,22 @@ export interface Round {
   /** The sequence to memorise, in order. */
   readonly target: Card[];
   /**
-   * Every candidate card for this round, in the fixed order they're offered
-   * in — includes every target card exactly once plus distractors, shuffled
-   * once. This order never changes during play: a card that returns from the
-   * answer goes back to this same position.
+   * The full 52-card deck, shuffled into a fresh position order for this
+   * round. Always every card, exactly once — the target is drawn from this
+   * same deck, so it's guaranteed to appear in here exactly once per card.
+   * This order never changes during play: a card that returns from the
+   * answer goes back to this same grid position.
    */
   readonly candidates: Card[];
 }
 
-/** Builds one round: a shuffled deck gives both a random target sequence and
- *  a random pick of distractors in the same draw, so nothing needs shuffling
- *  twice. */
+/** Builds one round: the full deck shuffled once for the candidate grid, and
+ *  shuffled again (independently) to pick the target sequence — so a card's
+ *  position in the grid gives no hint about its place in the target order. */
 export function generateRound(level: number, rng: () => number = Math.random): Round {
   const config = levelConfig(level);
-  const deck = shuffle(buildDeck(), rng);
-  const target = deck.slice(0, config.targetCount);
-  const distractors = deck.slice(config.targetCount, config.candidateCount);
-  const candidates = shuffle([...target, ...distractors], rng);
+  const deck = buildDeck();
+  const candidates = shuffle(deck, rng);
+  const target = shuffle(deck, rng).slice(0, config.targetCount);
   return { target, candidates };
 }

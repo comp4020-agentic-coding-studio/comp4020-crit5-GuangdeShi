@@ -38,13 +38,13 @@ describe("level configuration", () => {
 
 describe("generateRound", () => {
   for (let level = 1; level <= MAX_LEVEL; level++) {
-    it(`level ${level}: candidates contain every target card exactly once, no duplicates`, () => {
+    it(`level ${level}: candidates are the full 52-card deck, target is a subset of it`, () => {
       const config = levelConfig(level);
       const { target, candidates } = generateRound(level);
 
       expect(target.length).toBe(config.targetCount);
-      expect(candidates.length).toBe(config.candidateCount);
-      expect(new Set(candidates.map((card) => card.id)).size).toBe(config.candidateCount);
+      expect(candidates.length).toBe(52);
+      expect(new Set(candidates.map((card) => card.id)).size).toBe(52);
 
       for (const card of target) {
         expect(candidates.filter((candidate) => candidate.id === card.id).length).toBe(1);
