@@ -12,12 +12,23 @@ function paint(): void {
   app.innerHTML = render(state);
 }
 
+/** Patches just the timer's text instead of a full repaint, so a plain
+ *  countdown tick doesn't restart every card's flip/glow animation. */
+function updateTimer(): void {
+  const el = app.querySelector<HTMLElement>(".timer");
+  if (!el) return;
+  const secondsLeft = state.phase === "memorize" ? state.memorizeSecondsLeft : state.recallSecondsLeft;
+  el.textContent = String(secondsLeft);
+  el.classList.toggle("low", secondsLeft <= 5);
+}
+
 function tick(): void {
+  const phaseBefore = state.phase;
   if (state.phase === "memorize") state = tickMemorize(state);
   else if (state.phase === "recall") state = tickRecall(state);
   else return;
-  paint();
-  if (state.phase === "success") scheduleAdvance();
+  if (state.phase !== phaseBefore) paint();
+  else updateTimer();
 }
 
 function scheduleAdvance(): void {

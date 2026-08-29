@@ -11,13 +11,17 @@ const SUIT_SYMBOL: Record<Card["suit"], string> = {
 /** A face-up card. With an `action`, it's a clickable candidate — `action`
  *  becomes a `data-action` the click delegator in main.ts reads back out.
  *  Without one, it's a plain display card (the target row, a reveal). */
-function faceUpCard(card: Card, action?: string): string {
+function faceUpCard(card: Card, action?: string, extraClass = "flip-in"): string {
   const tag = action ? "button" : "div";
   const type = action ? ` type="button"` : "";
   const dataAction = action ? ` data-action="${action}"` : "";
-  return `<${tag}${type} class="card ${card.color}"${dataAction}>
+  return `<${tag}${type} class="card ${card.color} ${extraClass}"${dataAction}>
     <span class="rank">${card.rank}</span><span class="suit">${SUIT_SYMBOL[card.suit]}</span>
   </${tag}>`;
+}
+
+function timer(secondsLeft: number): string {
+  return `<div class="timer${secondsLeft <= 5 ? " low" : ""}">${secondsLeft}</div>`;
 }
 
 function faceDownCard(): string {
@@ -39,7 +43,7 @@ function answerSlot(card: Card | undefined, mark?: "correct" | "wrong"): string 
       <span class="rank">${card.rank}</span><span class="suit">${SUIT_SYMBOL[card.suit]}</span>
     </div>`;
   }
-  return `<button type="button" class="card ${card.color}" data-action="deselect:${card.id}">
+  return `<button type="button" class="card ${card.color} place-in" data-action="deselect:${card.id}">
     <span class="rank">${card.rank}</span><span class="suit">${SUIT_SYMBOL[card.suit]}</span>
   </button>`;
 }
@@ -57,7 +61,7 @@ function renderMemorize(state: GameState): string {
   const candidateRow = state.candidates.map(() => faceDownCard()).join("");
   return `
     <div class="round" data-phase="memorize">
-      <div class="timer">${state.memorizeSecondsLeft}</div>
+      ${timer(state.memorizeSecondsLeft)}
       <div class="row target-row">${targetRow}</div>
       <div class="row candidate-row">${candidateRow}</div>
     </div>
@@ -77,7 +81,7 @@ function renderRecall(state: GameState): string {
     .join("");
   return `
     <div class="round" data-phase="recall">
-      <div class="timer">${state.recallSecondsLeft}</div>
+      ${timer(state.recallSecondsLeft)}
       <div class="row answer-row">${answerRow}</div>
       <div class="row candidate-row">${candidateRow}</div>
     </div>
