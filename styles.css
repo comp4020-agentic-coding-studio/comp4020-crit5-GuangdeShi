@@ -151,6 +151,22 @@ button.card {
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
+/* Candidate cards render as <button>s so they're clickable, but a bare
+   button carries its own background/border/padding from the browser --
+   visible as a grey tile behind the card face, since the face art has
+   transparent rounded corners. Stripping that UA chrome back to nothing
+   leaves just the card image and its box-shadow, same as the non-button
+   (div) cards elsewhere. */
+.candidate-grid button.card {
+  appearance: none;
+  -webkit-appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+}
+
 button.card:hover {
   transform: translateY(-0.6rem) rotate(-1deg);
   box-shadow: 0 0.6rem 1rem rgba(0, 0, 0, 0.45);
