@@ -7,9 +7,9 @@
   --black: #1a1a1a;
   --card-bg: #f4f1e8;
   --card-w: 4.4rem;
-  --card-h: 6.2rem;
+  --card-h: 6.4rem;
   --card-w-grid: 3.7rem;
-  --card-h-grid: 5.2rem;
+  --card-h-grid: 5.4rem;
 }
 
 * {
@@ -127,145 +127,23 @@ nav a {
   width: var(--card-w);
   height: var(--card-h);
   border-radius: 0.5rem;
-  border: 1px solid rgba(20, 16, 10, 0.16);
-  background: var(--card-bg);
   box-shadow: 0 0.15rem 0.4rem rgba(0, 0, 0, 0.35);
   font-family: Georgia, "Times New Roman", serif;
   color: var(--black);
+}
+
+.card-face {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
 }
 
 .candidate-grid .card {
   width: var(--card-w-grid);
   height: var(--card-h-grid);
   justify-self: center;
-}
-
-.card.red {
-  color: var(--red);
-}
-
-.corner {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  line-height: 1;
-  font-size: 0.85rem;
-}
-
-.candidate-grid .corner {
-  font-size: 0.65rem;
-}
-
-.corner.top-left {
-  top: 0.3rem;
-  left: 0.35rem;
-}
-
-.corner.bottom-right {
-  bottom: 0.3rem;
-  right: 0.35rem;
-  transform: rotate(180deg);
-}
-
-.corner-suit {
-  display: block;
-  width: 0.72rem;
-  height: 0.72rem;
-  margin-top: 0.05rem;
-}
-
-.candidate-grid .corner-suit {
-  width: 0.5rem;
-  height: 0.5rem;
-}
-
-.pips {
-  position: absolute;
-  inset: 0.9rem 0.45rem;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(7, 1fr);
-}
-
-.candidate-grid .pips {
-  inset: 0.7rem 0.3rem;
-}
-
-.pip {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.pip-icon {
-  width: 0.5rem;
-  height: 0.5rem;
-}
-
-.candidate-grid .pip-icon {
-  width: 0.34rem;
-  height: 0.34rem;
-}
-
-.ace-mark {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.ace-icon {
-  width: 2.3rem;
-  height: 2.3rem;
-}
-
-.candidate-grid .ace-icon {
-  width: 1.5rem;
-  height: 1.5rem;
-}
-
-.face-card {
-  position: absolute;
-  inset: 0.7rem 0.35rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.candidate-grid .face-card {
-  inset: 0.45rem 0.2rem;
-}
-
-.face-half {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.face-half.bottom {
-  transform: rotate(180deg);
-}
-
-.face-portrait-svg {
-  display: block;
-  width: 1.9rem;
-  height: auto;
-}
-
-.candidate-grid .face-portrait-svg {
-  width: 1.05rem;
-}
-
-.face-letter {
-  font-size: 1rem;
-  font-weight: bold;
-}
-
-.candidate-grid .face-letter {
-  font-size: 0.72rem;
 }
 
 button.card {
@@ -430,9 +308,9 @@ button.card:active {
 @media (max-width: 640px) {
   :root {
     --card-w: 3.4rem;
-    --card-h: 4.8rem;
+    --card-h: 4.9rem;
     --card-w-grid: 2.6rem;
-    --card-h-grid: 3.7rem;
+    --card-h-grid: 3.8rem;
   }
 
   .row {
@@ -442,44 +320,6 @@ button.card:active {
   .candidate-grid {
     gap: 0.35rem;
   }
-
-  .pip-icon {
-    width: 0.4rem;
-    height: 0.4rem;
-  }
-
-  .ace-icon {
-    width: 1.8rem;
-    height: 1.8rem;
-  }
-
-  .corner-suit {
-    width: 0.58rem;
-    height: 0.58rem;
-  }
-
-  .face-portrait-svg {
-    width: 1.5rem;
-  }
-
-  .candidate-grid .pip-icon {
-    width: 0.27rem;
-    height: 0.27rem;
-  }
-
-  .candidate-grid .ace-icon {
-    width: 1.2rem;
-    height: 1.2rem;
-  }
-
-  .candidate-grid .corner-suit {
-    width: 0.42rem;
-    height: 0.42rem;
-  }
-
-  .candidate-grid .face-portrait-svg {
-    width: 0.85rem;
-  }
 }
 
 @media (max-width: 400px) {
@@ -487,49 +327,11 @@ button.card:active {
     --card-w: 2.7rem;
     --card-h: 3.9rem;
     --card-w-grid: 2.2rem;
-    --card-h-grid: 3.1rem;
+    --card-h-grid: 3.2rem;
   }
 
   .card {
     font-size: 1rem;
-  }
-
-  .pip-icon {
-    width: 0.32rem;
-    height: 0.32rem;
-  }
-
-  .ace-icon {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-
-  .corner-suit {
-    width: 0.48rem;
-    height: 0.48rem;
-  }
-
-  .face-portrait-svg {
-    width: 1.25rem;
-  }
-
-  .candidate-grid .pip-icon {
-    width: 0.22rem;
-    height: 0.22rem;
-  }
-
-  .candidate-grid .ace-icon {
-    width: 1rem;
-    height: 1rem;
-  }
-
-  .candidate-grid .corner-suit {
-    width: 0.36rem;
-    height: 0.36rem;
-  }
-
-  .candidate-grid .face-portrait-svg {
-    width: 0.72rem;
   }
 }
 

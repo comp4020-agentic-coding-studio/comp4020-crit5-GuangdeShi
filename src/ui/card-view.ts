@@ -1,54 +1,11 @@
 import type { Card } from "../game/cards.ts";
-import { facePortrait } from "./face-portrait.ts";
-import { pipLayout } from "./pips.ts";
-import { suitIcon } from "./suits.ts";
+import { cardFaceAlt, cardFaceSrc } from "./card-assets.ts";
 
-/** The four corner indices: rank text plus a small SVG suit icon, reused
- *  as-is (mirrored via a 180deg rotation) for the bottom-right corner. */
-function cornerMark(card: Card): string {
-  return `<span class="corner-rank">${card.rank}</span>${suitIcon(card.suit, "corner-suit")}`;
-}
-
-/** The centre of a numbered card (2-10): one pip per `pipLayout` position,
- *  each an SVG suit icon placed on the 3x9 grid, upside-down in the top half
- *  so it reads correctly from either end of the card, exactly like a real
- *  deck. */
-function pipCenter(card: Card): string {
-  const pips = pipLayout(card.rank)
-    .map((pip) => {
-      const rotate = pip.rotated ? "transform:rotate(180deg);" : "";
-      return `<span class="pip" style="grid-row:${pip.row};grid-column:${pip.col};${rotate}">${suitIcon(card.suit, "pip-icon")}</span>`;
-    })
-    .join("");
-  return `<span class="pips">${pips}</span>`;
-}
-
-/** The centre of an ace: one large suit icon, nothing else. */
-function aceCenter(card: Card): string {
-  return `<span class="ace-mark">${suitIcon(card.suit, "ace-icon")}</span>`;
-}
-
-/** The centre of a face card (J/Q/K): a double-headed portrait, the same
- *  half rendered twice and mirrored, with the rank letter sitting between
- *  the two halves so it stays readable at any size. */
-function faceCenter(card: Card, rank: "J" | "Q" | "K"): string {
-  const portrait = facePortrait(rank, card.suit);
-  return `<span class="face-card"><span class="face-half top">${portrait}</span><span class="face-letter">${rank}</span><span class="face-half bottom">${portrait}</span></span>`;
-}
-
-/** The card face's interior: matching top-left / mirrored bottom-right
- *  corner indices, and a centre treatment that depends on rank. */
+/** The card face's interior: a single vendored deck-face image (see
+ *  public/cards/ATTRIBUTION.md) — corners, pips and face-card portraits are
+ *  all baked into the asset, so there's nothing to draw here. */
 function cardFace(card: Card): string {
-  const corner = cornerMark(card);
-  let center: string;
-  if (card.rank === "A") {
-    center = aceCenter(card);
-  } else if (card.rank === "J" || card.rank === "Q" || card.rank === "K") {
-    center = faceCenter(card, card.rank);
-  } else {
-    center = pipCenter(card);
-  }
-  return `<span class="corner top-left">${corner}</span>${center}<span class="corner bottom-right">${corner}</span>`;
+  return `<img class="card-face" src="${cardFaceSrc(card)}" alt="${cardFaceAlt(card)}" draggable="false" />`;
 }
 
 /** A face-up card. With an `action`, it's a clickable candidate — `action`
