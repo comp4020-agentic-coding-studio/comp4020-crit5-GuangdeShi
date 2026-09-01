@@ -15,6 +15,14 @@ for the face cards) without changing how the cards look — same standard
 English-pattern deck, just delivered as small PNGs instead of heavy vector
 paths.
 
+The one deliberate change from the source: each card's outer frame path drew
+a black stroke around the white face, which read as a heavy hard-edged
+border once scaled down to game size. That stroke is removed before
+rasterizing (`stroke:none` on the frame path) so separation from the dark
+table background comes from the CSS drop shadow instead. Face cards keep
+their own ornamental double-line portrait frame — that's part of the
+court-card artwork itself, not the outer border, and is untouched.
+
 ## MIT license text (from the source repository)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
