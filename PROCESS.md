@@ -152,6 +152,17 @@ vendored public-domain standard deck rather than anything hand-drawn.
     protected the one rule the brief asks me to prove; playing the game, and
     looking at the deck in the gallery, is what actually judged the design.
 
+12. **A fourth playtest: the ramped curve was still too gradual.** Levels 1
+    through 12 climbed smoothly enough that adjacent levels felt almost the
+    same, and the run never reached anything I'd call late-game. I widened
+    the gaps between tiers instead of nudging them again --- target length
+    now jumps in steps of two rather than crawling up by one every other
+    level --- and stretched the run from 12 levels to 15 so there's room for
+    a genuinely hard late stretch. Timers grew alongside target length rather
+    than shrinking, so a level with twice the cards to remember gets
+    meaningfully more time, not less.
+    [`191c116`](https://github.com/comp4020-agentic-coding-studio/comp4020-crit5-GuangdeShi/commit/191c116)
+
 ## Getting it live
 
 The repository stayed private through all of the above, by design --- CI is
