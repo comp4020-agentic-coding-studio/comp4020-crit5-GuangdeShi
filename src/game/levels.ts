@@ -1,8 +1,11 @@
 // The difficulty curve, in one place so it can be rebalanced after
-// playtesting without touching game logic. candidateCount is currently the
-// same at every level (a half-deck: 26 of the 52 cards), but it's still a
-// per-level field rather than a hardcoded constant, so a future rebalance can
-// vary it without restructuring anything.
+// playtesting without touching game logic. candidateCount now climbs from 16
+// to 28 across the 12 levels rather than sitting fixed at a 26-card half-deck
+// — a flat pool made level 1 as visually crowded as level 12, and a fixed
+// half-deck at every level meant the only lever raising difficulty was the
+// timers. Ramping the pool alongside target length means difficulty comes
+// from having more cards to hold in memory and more distractors to tell
+// apart, not just less time to act.
 
 export interface LevelConfig {
   readonly level: number;
@@ -13,18 +16,18 @@ export interface LevelConfig {
 }
 
 export const LEVELS: readonly LevelConfig[] = [
-  { level: 1, targetCount: 3, candidateCount: 26, memorizeSeconds: 3, recallSeconds: 8 },
-  { level: 2, targetCount: 3, candidateCount: 26, memorizeSeconds: 3, recallSeconds: 7 },
-  { level: 3, targetCount: 4, candidateCount: 26, memorizeSeconds: 4, recallSeconds: 9 },
-  { level: 4, targetCount: 4, candidateCount: 26, memorizeSeconds: 4, recallSeconds: 8 },
-  { level: 5, targetCount: 5, candidateCount: 26, memorizeSeconds: 5, recallSeconds: 11 },
-  { level: 6, targetCount: 5, candidateCount: 26, memorizeSeconds: 5, recallSeconds: 10 },
-  { level: 7, targetCount: 6, candidateCount: 26, memorizeSeconds: 6, recallSeconds: 13 },
-  { level: 8, targetCount: 6, candidateCount: 26, memorizeSeconds: 6, recallSeconds: 12 },
-  { level: 9, targetCount: 7, candidateCount: 26, memorizeSeconds: 7, recallSeconds: 15 },
-  { level: 10, targetCount: 7, candidateCount: 26, memorizeSeconds: 7, recallSeconds: 14 },
-  { level: 11, targetCount: 8, candidateCount: 26, memorizeSeconds: 8, recallSeconds: 18 },
-  { level: 12, targetCount: 8, candidateCount: 26, memorizeSeconds: 8, recallSeconds: 16 },
+  { level: 1, targetCount: 3, candidateCount: 16, memorizeSeconds: 8, recallSeconds: 22 },
+  { level: 2, targetCount: 3, candidateCount: 18, memorizeSeconds: 8, recallSeconds: 22 },
+  { level: 3, targetCount: 4, candidateCount: 18, memorizeSeconds: 10, recallSeconds: 26 },
+  { level: 4, targetCount: 4, candidateCount: 20, memorizeSeconds: 10, recallSeconds: 26 },
+  { level: 5, targetCount: 5, candidateCount: 20, memorizeSeconds: 12, recallSeconds: 30 },
+  { level: 6, targetCount: 5, candidateCount: 22, memorizeSeconds: 12, recallSeconds: 30 },
+  { level: 7, targetCount: 6, candidateCount: 22, memorizeSeconds: 14, recallSeconds: 34 },
+  { level: 8, targetCount: 6, candidateCount: 24, memorizeSeconds: 14, recallSeconds: 34 },
+  { level: 9, targetCount: 7, candidateCount: 24, memorizeSeconds: 16, recallSeconds: 38 },
+  { level: 10, targetCount: 7, candidateCount: 26, memorizeSeconds: 16, recallSeconds: 38 },
+  { level: 11, targetCount: 8, candidateCount: 26, memorizeSeconds: 18, recallSeconds: 42 },
+  { level: 12, targetCount: 8, candidateCount: 28, memorizeSeconds: 18, recallSeconds: 42 },
 ];
 
 export const MAX_LEVEL = LEVELS.length;
