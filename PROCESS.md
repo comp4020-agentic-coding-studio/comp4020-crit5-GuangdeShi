@@ -17,11 +17,12 @@ Recall: a card sequence memory game. A short target sequence is shown face-up,
 flips face-down, and a pool of candidates flips face-up in its place. The
 player reconstructs the sequence by clicking candidates in order --- the same
 click gesture undoes a placed card --- and the answer validates itself the
-instant every slot is filled, no submit step. Twelve levels raise target
-length, candidate pool size, and both timers together, so later levels demand
+instant every slot is filled, no submit step. Fifteen levels raise target
+length, candidate pool size, and both timers together in bigger, more
+distinct steps than the curve first shipped with, so later levels demand
 more memory and more discrimination between distractors, not just less time
 to react. Losing (wrong order, or the recall timer running out) is real and
-reachable, and clearing level 12 ends the run in a win screen. The deck is a
+reachable, and clearing level 15 ends the run in a win screen. The deck is a
 vendored public-domain standard deck rather than anything hand-drawn.
 
 ## The moments that mattered

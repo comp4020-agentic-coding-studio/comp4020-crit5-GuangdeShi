@@ -28,10 +28,17 @@ describe("buildDeck", () => {
 });
 
 describe("level configuration", () => {
-  it("has 12 levels, indexed from 1", () => {
-    expect(MAX_LEVEL).toBe(12);
+  it("has 15 levels, indexed from 1", () => {
+    expect(MAX_LEVEL).toBe(15);
     expect(levelConfig(1).level).toBe(1);
-    expect(levelConfig(12).level).toBe(12);
+    expect(levelConfig(15).level).toBe(15);
+  });
+
+  it("never asks for more target cards than the candidate pool holds", () => {
+    for (let level = 1; level <= MAX_LEVEL; level++) {
+      const config = levelConfig(level);
+      expect(config.candidateCount).toBeGreaterThanOrEqual(config.targetCount);
+    }
   });
 
 });
@@ -102,7 +109,7 @@ describe("game state transitions", () => {
     expect(state.answer.map((c) => c.id)).toEqual([second.id]);
   });
 
-  it("advances to the next level after success, and to win after level 12", () => {
+  it("advances to the next level after success, and to win after the final level", () => {
     let state = startLevel(MAX_LEVEL, () => 0);
     state = finishMemorize(state);
     for (const card of state.target) state = selectCard(state, card.id);
