@@ -8,8 +8,8 @@
   --card-bg: #f4f1e8;
   --card-w: 4.4rem;
   --card-h: 6.4rem;
-  --card-w-grid: 3.7rem;
-  --card-h-grid: 5.4rem;
+  --card-w-grid: 4.6rem;
+  --card-h-grid: 6.7rem;
 }
 
 * {
@@ -118,7 +118,7 @@ nav a {
   grid-template-columns: repeat(auto-fill, minmax(var(--card-w-grid), 1fr));
   gap: 0.6rem;
   width: 100%;
-  max-width: 44rem;
+  max-width: 54rem;
   justify-content: center;
 }
 
